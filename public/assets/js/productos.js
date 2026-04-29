@@ -14,7 +14,6 @@
  * 1. LISTADO de productos
  * 2. DETALLE de producto
  *
- * Detecta automáticamente cuál ejecutar.
  */
 
 /* 
@@ -102,9 +101,6 @@ window.addEventListener("resize", moverSlider);
 /**
  * Evita ejecutar una función muchas veces seguidas
  *
- * Ejemplo:
- * - Usuario escribe → no dispara API inmediatamente
- * - Espera 400ms → ejecuta
  */
 function debounce(fn, delay = 400) {
   return (...args) => {
@@ -238,9 +234,7 @@ function initLimpiarFiltros() {
 function actualizarBadge() {
   // Obtiene filtros activos
   const estado = leerFiltrosBase();
-  // nombre → suma 1
-  // talla → suma 1
-  // colores → suma cantidad
+
   const total =
     (estado.nombre ? 1 : 0) + (estado.talla ? 1 : 0) + estado.colores.length;
 
@@ -281,7 +275,7 @@ function eventos() {
 
       cargarProductos(1);
       actualizarBadge();
-    }, 400)
+    }, 400),
   );
 
   /**
@@ -297,7 +291,7 @@ function eventos() {
 
       cargarProductos(1);
       actualizarBadge();
-    }, 400)
+    }, 400),
   );
 }
 
@@ -404,10 +398,8 @@ function aplicarRango(minVal, maxVal, rangoMax) {
   maxInput.max = rangoMax;
 
   /**
-   * Forzamos reflow (recalcular posición de los elementos) del DOM para que el navegador
+   * Se forza reflow (recalcular posición de los elementos) del DOM para que el navegador
    * reconozca los cambios de min/max antes de asignar valores.
-   *
-   * Sin esto, algunos navegadores ignoran el cambio.
    */
   void minInput.offsetWidth;
   void maxInput.offsetWidth;
@@ -589,7 +581,7 @@ function cargarFiltros() {
         cb.addEventListener("change", () => {
           const valDesktop = cb.value;
           const cbMobile = document.querySelector(
-            `.color-check-mobile[value="${valDesktop}"]`
+            `.color-check-mobile[value="${valDesktop}"]`,
           );
           if (cbMobile) cbMobile.checked = cb.checked;
 
@@ -619,7 +611,7 @@ function cargarFiltros() {
           cb.addEventListener("change", () => {
             const valMobile = cb.value;
             const cbDesktop = document.querySelector(
-              `.color-check[value="${valMobile}"]`
+              `.color-check[value="${valMobile}"]`,
             );
             if (cbDesktop) cbDesktop.checked = cb.checked;
 
@@ -631,12 +623,15 @@ function cargarFiltros() {
     })
     .catch(() => {
       // Error al cargar filtros → mostrar en el contenedor principal
-      renderError("resultados", "Error al cargar los filtros. Intenta recargar la página.");
+      renderError(
+        "resultados",
+        "Error al cargar los filtros. Intenta recargar la página.",
+      );
     });
 }
 
 //
-// UI STATES
+// ESTADO EN LA UI
 //
 
 /**
@@ -784,12 +779,13 @@ function filtrosBaseIguales(a, b) {
 //
 
 /**
+ * Carga productos desde la API aplicando los filtros activos.
  *
  * Maneja:
- * - Filtros
- * - Slider dinámico
+ * - Filtros (nombre, talla, color, precio)
+ * - Slider dinámico (ajusta el rango según resultados)
  * - Paginación
- * - Estado inteligente
+ * - Estado inteligente (detecta cambios para no resetear el slider innecesariamente)
  */
 function cargarProductos(pagina = 1) {
   // Estado de carga mientras se obtienen los productos
@@ -801,7 +797,9 @@ function cargarProductos(pagina = 1) {
   const tieneBase = hayFiltrosBase(estadoActual);
   const cambiároBase = !filtrosBaseIguales(estadoActual, estadoAnterior);
 
-  // PRE-RESET (CASO 3)
+  // PRE-RESET: el usuario acaba de quitar todos los filtros
+  // Se restaura el slider al rango global antes del fetch
+  // para evitar que quede mostrando un rango filtrado sin filtros activos
   if (!tieneBase && cambiároBase) {
     const rangoReset = maxGlobal || 0;
     aplicarRango(0, rangoReset, rangoReset);
@@ -818,7 +816,7 @@ function cargarProductos(pagina = 1) {
   if (estadoActual.nombre) params.append("nombre", estadoActual.nombre);
   if (estadoActual.talla) params.append("talla", estadoActual.talla);
 
-  // Orden: tomar del select visible o del desktop
+  // Orden: tomar del select visible (desktop o mobile)
   const ordenVal =
     document.getElementById("orden")?.value ||
     document.getElementById("ordenMobile")?.value;
@@ -827,13 +825,15 @@ function cargarProductos(pagina = 1) {
   const precioMin = document.getElementById("precioMin")?.value;
   const precioMax = document.getElementById("precioMax")?.value;
 
+  // Solo enviar precio si el usuario interactuó con el slider
+  // Evita enviar 0 y el máximo global en cada petición por defecto
   if (usuarioTocoPrecio) {
     if (precioMin) params.append("precio_min", precioMin);
     if (precioMax) params.append("precio_max", precioMax);
   }
 
   /**
-   * Colores (array)
+   * Colores: se envían como array (?color[]=1&color[]=2)
    */
   estadoActual.colores.forEach((v) => params.append("color[]", v));
 
@@ -844,47 +844,58 @@ function cargarProductos(pagina = 1) {
     })
     .then((res) => {
       /**
-       * Datos de configuración desde backend
+       * precio_max        → máximo dentro de los resultados filtrados
+       * precio_max_global → máximo absoluto de toda la BD (sin filtros)
        */
       const precioMaxApi = res.config?.precio_max;
       const precioMaxGlobal = res.config?.precio_max_global;
 
-      /**
-       * Guardar máximo global una sola vez
-       */
+      // Guardar el máximo global solo en la primera carga
+      // Las siguientes llamadas no lo sobreescriben
       if (precioMaxGlobal && maxGlobal === null) {
         maxGlobal = precioMaxGlobal;
       }
 
-      // CASO 2
       /**
        * LÓGICA INTELIGENTE DEL SLIDER
+       *
+       * El comportamiento del slider cambia según si hay filtros activos
+       * y si esos filtros cambiaron respecto a la petición anterior.
        */
+
+      // CASO 1 — Se aplicó o cambió un filtro (talla, color o búsqueda)
+      // El rango de precios posiblemente se redujo → resetear slider al nuevo máximo filtrado
       if (tieneBase && cambiároBase) {
-        // Caso: nuevos filtros
         resetSliderDinamico(precioMaxApi);
       }
-      // CASO 2b
+
+      // CASO 2 — Filtros activos sin cambios (usuario mueve el slider con filtros ya aplicados)
+      // Los filtros base no cambiaron, pero el precio pudo ajustarse → solo reajusta el máximo
       else if (tieneBase && !cambiároBase) {
-        // Caso: mismos filtros
         ajustarMaxSinReset(precioMaxApi);
       }
-      // CASO 3
+
+      // CASO 3 — Se quitaron todos los filtros
+      // Restaurar slider al rango global completo
       else if (!tieneBase && cambiároBase) {
         resetSliderGlobal(precioMaxApi);
       }
-      // CASO 1
+
+      // CASO 4 — Sin filtros activos y el usuario movió el slider
+      // No hay cambios de filtro, pero el precio fue ajustado manualmente
+      // Se va a reajustar el máximo al global sin mover la posición actual del slider
       else if (!tieneBase && !cambiároBase && usuarioTocoPrecio) {
         ajustarMaxSinReset(maxGlobal);
       }
-      // CARGA INICIAL
+
+      // CARGA INICIAL — Primera vez que carga la página, sin filtros ni interacción previa
       else {
-        // Caso: sin filtros
         resetSliderGlobal(precioMaxApi);
       }
 
       /**
-       * Guardar estado actual
+       * Guardar estado actual como referencia para la próxima llamada
+       * Permite detectar si los filtros cambiaron en el siguiente render
        */
       estadoAnterior = {
         nombre: estadoActual.nombre,
@@ -892,7 +903,7 @@ function cargarProductos(pagina = 1) {
         colores: [...estadoActual.colores],
       };
 
-      // ESTADO VACÍO
+      // Sin resultados para los filtros aplicados
       const productos = res.data || [];
       if (!productos.length) {
         renderEmpty("resultados", "No se encontraron productos");
@@ -900,7 +911,7 @@ function cargarProductos(pagina = 1) {
       }
 
       /**
-       * Render UI
+       * Render completo de la UI
        */
       renderProductos(productos);
       renderPaginacion(res.meta);
@@ -1103,7 +1114,10 @@ function cargarDetalleProducto() {
     })
     .catch(() => {
       // Error de red o respuesta inesperada del servidor
-      renderError("detalle-producto", "Error al cargar el producto. Intenta de nuevo.");
+      renderError(
+        "detalle-producto",
+        "Error al cargar el producto. Intenta de nuevo.",
+      );
     });
 }
 
