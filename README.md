@@ -11,26 +11,26 @@ Sistema web para la visualización y filtrado dinámico de productos. Permite ex
 
 ## Tabla de contenidos
 
-- [Funcionalidades](#-funcionalidades)
-- [Stack tecnológico](#-stack-tecnológico)
-- [Estructura del proyecto](#-estructura-del-proyecto)
-- [Requisitos](#-requisitos)
-- [Instalación](#-instalación)
-- [Configuración de base de datos](#-configuración-de-base-de-datos-opcional)
-- [Uso del sistema](#-uso-del-sistema)
+- [Funcionalidades][Link Text](#funcionalidades)
+- [Stack tecnológico][Link Text](#stack-tecnológico)
+- [Estructura del proyecto][Link Text](#estructura-del-proyecto)
+- [Requisitos][Link Text](#requisitos)
+- [Instalación][Link Text](#instalación)
+- [Configuración de base de datos][Link Text](#configuración-de-base-de-datos-opcional)
+- [Uso del sistema][Link Text](#uso-del-sistema)
 
 ---
 
 ## Funcionalidades
 
-- 🔍 Búsqueda en tiempo real por nombre de producto
-- 🎨 Filtro por color
-- 👕 Filtro por talla
-- 💲 Filtro por rango de precios (slider interactivo)
-- 📄 Paginación de resultados
-- 📱 Diseño completamente responsive (desktop y mobile)
-- ⚡ Consumo de API mediante AJAX (Fetch)
-- 🔎 Vista de detalle de producto con zoom
+- Búsqueda en tiempo real por nombre de producto
+- Filtro por color
+- Filtro por talla
+- Filtro por rango de precios (slider interactivo)
+- Paginación de resultados
+- Diseño completamente responsive (desktop y mobile)
+- Consumo de API mediante AJAX (Fetch)
+- Vista de detalle de producto con zoom
 
 ---
 
@@ -46,6 +46,7 @@ Sistema web para la visualización y filtrado dinámico de productos. Permite ex
 ---
 
 ## Estructura del proyecto
+![Captura de la estructura.](/public/img/img_1.pngg)
 ├── public/
 │   ├── index.php
 │   ├── css/
@@ -56,8 +57,8 @@ Sistema web para la visualización y filtrado dinámico de productos. Permite ex
 │   └── models/
 │
 └── views/
-├── productos/
-└── layouts/
+    ├── productos/
+    └── layouts/
 
 ---
 
