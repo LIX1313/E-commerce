@@ -9,20 +9,6 @@
  * - Determinar qué recurso se debe cargar (API o vista)
  * - Redirigir al controlador correspondiente
  *
- * Este enfoque es un "router manual" (sin framework).
-
-Usuario entra → index.php (Front Controller)
-              ↓
-        Se analiza la URL
-              ↓
- ┌────────────┴────────────┐
- │                         │
-API                    VISTA
- │                         │
-Controller           PHP/HTML
- │
-Modelo (DB)
-
  */
 
 require_once __DIR__ . '/../app/controllers/ProductosController.php';
@@ -105,7 +91,6 @@ if ($uri === '/api/products') {
  * ENDPOINT: /api/filtros
  *
  * FUNCIONALIDAD:
- * - Devuelve colores y tallas disponibles
  * - Se usa para poblar filtros en frontend
  *
  * MÉTODO: GET
