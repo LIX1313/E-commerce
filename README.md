@@ -47,18 +47,6 @@ Sistema web para la visualización y filtrado dinámico de productos. Permite ex
 
 ## Estructura del proyecto
 ![Captura de la estructura.](/public/img/img_1.png)
-├── public/
-│   ├── index.php
-│   ├── css/
-│   └── assets/js/
-│
-├── app/
-│   ├── controllers/
-│   └── models/
-│
-└── views/
-    ├── productos/
-    └── layouts/
 
 ---
 
@@ -76,7 +64,7 @@ Sistema web para la visualización y filtrado dinámico de productos. Permite ex
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/tu-usuario/tu-repositorio.git
+git clone https://github.com/LIX1313/E-commerce.git
 ```
 
 ### 2. Ubicar el proyecto en el servidor
@@ -85,14 +73,27 @@ Mueve o clona el proyecto dentro del directorio raíz de tu servidor local:
 C:\xampp\htdocs\tu-proyecto     # Windows (XAMPP)
 /opt/lampp/htdocs/tu-proyecto   # Linux (XAMPP)
 
-### 3. Iniciar los servicios
+### 3. Iniciar el servidor
 
-1. Inicia el servidor **Apache**
-2. Inicia **MySQL** *(si aplica)*
-3. Abre tu navegador y accede a:
-http://localhost/tu-proyecto/public
+Este proyecto utiliza la carpeta `public/` como punto de entrada (front controller), por lo que se recomienda ejecutar el servidor embebido de PHP.
 
----
+#### Opción recomendada (Servidor embebido de PHP)
+
+Ejecuta el siguiente comando en la raíz del proyecto:
+
+```bash
+php -S localhost:8000 -t public
+```
+### Luego abre tu navegador en:
+
+```bash
+http://localhost:8000
+```
+
+### Esto asegura que:
+
+1. index.php dentro de /public sea la raíz
+2. Las rutas funcionen correctamente (como /api/products, /detalles, etc.)
 
 ## Configuración de base de datos *(opcional)*
 
