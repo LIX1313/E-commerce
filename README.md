@@ -26,6 +26,9 @@ Sistema web para la visualización, filtrado dinámico y gestión de productos. 
 
 ![Vista previa del sistema](/public/assets/img/vista_general.gif)
 
+> [!NOTE]
+> Tarda unos segundos en cargar el gif.
+
 ---
 
 ## Descripción del proyecto
@@ -69,7 +72,7 @@ E-commerce/
 │ ├── assets/ # Recursos estáticos
 │ │ ├── css/ # Estilos
 │ │ ├── js/ # Scripts JS
-│ │ └── img/ # Imágenes (productos, UI, etc.)
+│ │ └── img/ # Imágenes (iconos, UI, etc.)
 │
 ├── app/ # Lógica de negocio (Backend)
 │ ├── controllers/ # Controladores (manejan peticiones)
@@ -77,7 +80,7 @@ E-commerce/
 │ └── config/ # Configuración (DB, constantes)
 │
 ├── views/ # Vistas (Frontend)
-│ ├── layouts/ # Header, footer, plantillas
+│ ├── layouts/ # Header y footer
 │ └── productos/ # Vistas de productos (listado, detalle)
 │
 ├── database.sql # Script de base de datos
