@@ -1,4 +1,4 @@
-# 🛒 E-commerce — Sistema Web de Listado y Gestión de Productos
+# E-commerce — Sistema Web de Listado y Gestión de Productos
 
 ![PHP](https://img.shields.io/badge/PHP-%3E%3D7.4-777BB4?logo=php&logoColor=white)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5-7952B3?logo=bootstrap&logoColor=white)
@@ -24,7 +24,7 @@ Sistema web para la visualización, filtrado dinámico y gestión de productos. 
 
 ## Vista general del sistema
 
-![Vista previa del sistema](/public/img/vista_general.gif)
+![Vista previa del sistema](/public/assets/img/vista_general.gif)
 
 ---
 
@@ -51,7 +51,7 @@ El sistema permite a los usuarios explorar productos mediante filtros combinable
 
 | Capa | Tecnología |
 |------|------------|
-| Frontend | HTML5, CSS3, JavaScript (Vanilla), Bootstrap 5 |
+| Frontend | HTML5, CSS3, JavaScript, Bootstrap 5 |
 | Backend | PHP ≥ 7.4 (arquitectura basada en controladores) |
 | Comunicación | Fetch API (AJAX) |
 | Base de datos | MySQL *(opcional)* |
@@ -62,7 +62,7 @@ El sistema permite a los usuarios explorar productos mediante filtros combinable
 ## Estructura del proyecto
 
 
-![Estructura del proyecto](/public/img/img_1.png)
+![Estructura del proyecto](/public/assets/img/img_1.png)
 
 ---
 
@@ -177,6 +177,6 @@ $config = [
 
 ### Diagrama de la base de datos
 
-![Diagrama de tablas](/public/img/Schema_tablas_(productos).png)
+![Diagrama de tablas](/public/assets/img/Schema_tablas_(productos).png)
 
 ---
