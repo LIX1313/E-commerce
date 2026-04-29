@@ -62,7 +62,28 @@ El sistema permite a los usuarios explorar productos mediante filtros combinable
 ## Estructura del proyecto
 
 
-![Estructura del proyecto](/public/assets/img/img_1.png)
+```
+E-commerce/
+├── public/ # Punto de entrada (Front Controller)
+│ ├── index.php # Archivo principal (routing básico)
+│ ├── assets/ # Recursos estáticos
+│ │ ├── css/ # Estilos
+│ │ ├── js/ # Scripts JS
+│ │ └── img/ # Imágenes (productos, UI, etc.)
+│
+├── app/ # Lógica de negocio (Backend)
+│ ├── controllers/ # Controladores (manejan peticiones)
+│ ├── models/ # Modelos (acceso a datos)
+│ └── config/ # Configuración (DB, constantes)
+│
+├── views/ # Vistas (Frontend)
+│ ├── layouts/ # Header, footer, plantillas
+│ └── productos/ # Vistas de productos (listado, detalle)
+│
+├── database.sql # Script de base de datos
+└── README.md # Documentación del proyecto
+
+```
 
 ---
 
@@ -164,7 +185,7 @@ mysql -u root -p e-commerce < database.sql
 
 O desde **phpMyAdmin**: selecciona la base de datos → pestaña *Importar* → sube `database.sql`.
 
-**3.** Configura las credenciales en el archivo de conexión:
+**3.** Configura las credenciales en el archivo de conexión, por ejemplo:
 
 ```php
 $config = [

@@ -14,7 +14,7 @@
     <title>Productos</title>
 
     <!-- CSS principal del proyecto -->
-    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
 
     <!-- Bootstrap (framework UI para componentes como dropdown, offcanvas, etc.) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -49,8 +49,8 @@
                 <a href="#">INICIAR SESIÓN / REGÍSTRATE</a>
 
                 <!-- Iconos sociales (convertidos a blanco con CSS filter) -->
-                <img src="/img/instagram-svgrepo-com.svg" alt="Instagram">
-                <img src="/img/facebook-svgrepo-com.svg" alt="Facebook">
+                <img src="/assets/img/instagram-svgrepo-com.svg" alt="Instagram">
+                <img src="/assets/img/facebook-svgrepo-com.svg" alt="Facebook">
             </div>
 
         </div>
@@ -92,7 +92,7 @@
             </div>
 
             <!-- LOGO PRINCIPAL -->
-            <img src="/img/logo-david-salomon.webp" class="logo" alt="Logo principal">
+            <img src="/assets/img/logo-david-salomon.webp" class="logo" alt="Logo principal">
 
             <!-- DROPDOWN 2 -->
             <div class="dropdown">
@@ -111,10 +111,10 @@
         <div class="nav-right">
 
             <!-- Búsqueda -->
-            <img src="/img/search-svgrepo-com.svg" alt="Buscar">
+            <img src="/assets/img/search-svgrepo-com.svg" alt="Buscar">
 
             <!-- Carrito -->
-            <img src="/img/cart-ico.svg" alt="Carrito">
+            <img src="/assets/img/cart-ico.svg" alt="Carrito">
         </div>
 
     </nav>
@@ -153,7 +153,7 @@
          -->
         <div class="mobile-menu-header">
 
-            <img src="/img/logo-david-salomon.webp" class="mobile-logo" alt="Logo mobile">
+            <img src="/assets/img/logo-david-salomon.webp" class="mobile-logo" alt="Logo mobile">
 
             <!-- Botón cerrar -->
             <button id="mobileMenuClose" class="mobile-menu-close">

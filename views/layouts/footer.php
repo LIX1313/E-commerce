@@ -77,7 +77,7 @@
          - Se recomienda usar versión en blanco (ya aplicada en CSS con filter)
      -->
     <div class="footer-logo">
-        <img src="/img/logo-david-salomon.webp" alt="Logo de la marca">
+        <img src="/assets/img/logo-david-salomon.webp" alt="Logo de la marca">
     </div>
 
 
@@ -89,8 +89,8 @@
          - Se recomienda envolver en <a> para enlaces reales
      -->
     <div class="footer-social">
-        <img src="/img/instagram-svgrepo-com.svg" alt="Instagram">
-        <img src="/img/facebook-svgrepo-com.svg" alt="Facebook">
+        <img src="/assets/img/instagram-svgrepo-com.svg" alt="Instagram">
+        <img src="/assets/img/facebook-svgrepo-com.svg" alt="Facebook">
     </div>
 
 

@@ -878,7 +878,7 @@ function renderProductos(productos) {
       <div class="col-md-4 col-6 mb-4">
         <div class="product-card">
           <div class="product-img">
-            <img src="${p.imagen || '/img/no-image.png'}" alt="${p.name}" loading="lazy" onerror="this.onerror=null; this.src='/img/no-image.png';">
+            <img src="${p.imagen || '/assets/img/no-image.png'}" alt="${p.name}" loading="lazy" onerror="this.onerror=null; this.src='/assets/img/no-image.png';">
             <div class="no-image-placeholder">
               Sin imagen
             </div>
@@ -954,7 +954,7 @@ function cargarDetalleProducto() {
     <!-- IMAGEN -->
     <div class="col-md-6 mb-4 d-flex justify-content-center">
       <div class="zoom-container" id="zoomContainer">
-      <img src="${p.imagen || '/img/no-image.png'}" id="imagenZoom" class="img-fluid" alt="${p.name}" loading="lazy" onerror="this.onerror=null; this.src='/img/no-image.png';">
+      <img src="${p.imagen || '/assets/img/no-image.png'}" id="imagenZoom" class="img-fluid" alt="${p.name}" loading="lazy" onerror="this.onerror=null; this.src='/assets/img/no-image.png';">
         <div class="no-image-placeholder">
                 Sin imagen
         </div>
