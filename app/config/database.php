@@ -2,7 +2,7 @@
 $servidor = "localhost";
 $usuario = "root";
 $clave = "1234";
-$base_datos = "practica1_backend";
+$base_datos = "e-commerce";
 $puerto = 3306;
 
 $conn = new mysqli($servidor, $usuario, $clave, $base_datos, $puerto);

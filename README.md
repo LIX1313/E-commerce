@@ -1,4 +1,4 @@
-# Sistema Web de Listado y Gestión de Productos
+# Sistema Web E-commerce de Listado y Gestión de Productos
 
 ![PHP](https://img.shields.io/badge/PHP-%3E%3D7.4-777BB4?logo=php&logoColor=white)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5-7952B3?logo=bootstrap&logoColor=white)
@@ -97,7 +97,19 @@ http://localhost:8000
 
 ## Configuración de base de datos *(opcional)*
 
-Si tu implementación utiliza MySQL, sigue estos pasos:
+El proyecto utiliza una base de datos MySQL compuesta por las siguientes tablas principales:
+
+- `productos`
+- `tallas`
+- `colores`
+
+Se incluye un archivo `database.sql` que contiene:
+
+- Estructura de las tablas
+- Relaciones entre entidades
+- Datos de prueba
+
+### Importación
 
 1. Crea una base de datos en MySQL
 2. Importa el archivo `.sql` incluido en el proyecto
@@ -110,9 +122,11 @@ $config = [
     'host'     => 'localhost',
     'user'     => 'root',
     'password' => '',
-    'database' => 'nombre_bd'
+    'database' => 'e-commerce'
 ];
 ```
+### Diagrama de la base de datos
+![Captura del diagrama.](/public/img/Schema_tablas_(productos).png)
 
 ---
 
