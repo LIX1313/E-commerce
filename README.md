@@ -6,28 +6,13 @@
 ![MySQL](https://img.shields.io/badge/MySQL-Opcional-4479A1?logo=mysql&logoColor=white)
 ![Status](https://img.shields.io/badge/Estado-Activo-brightgreen)
 
-Sistema web para la visualización, filtrado dinámico y gestión de productos. Permite explorar un catálogo completo mediante múltiples criterios de búsqueda sin necesidad de recargar la página, con una interfaz responsive y moderna.
-
 ---
 
 ## Tabla de contenidos
 
-- [Vista previa](#vista-general-del-sistema)
 - [Descripción del proyecto](#descripción-del-proyecto)
 - [Stack tecnológico](#stack-tecnológico)
-- [Estructura del proyecto](#estructura-del-proyecto)
-- [Requisitos previos](#requisitos-previos)
 - [Instalación y configuración](#instalación-y-configuración)
-- [Configuración de base de datos](#configuración-de-base-de-datos-opcional)
-
----
-
-## Vista general del sistema
-
-![Vista previa del sistema](/public/assets/img/vista_general.gif)
-
-> [!NOTE]
-> Tarda unos segundos en cargar el gif.
 
 ---
 
@@ -37,7 +22,14 @@ Sistema web para la visualización, filtrado dinámico y gestión de productos. 
 
 El sistema permite a los usuarios explorar productos mediante filtros combinables en tiempo real, sin recargar la página, gracias al uso de la Fetch API (AJAX).
 
-### Funcionalidades principales
+### Vista general
+
+![Vista previa del sistema](/public/assets/img/vista_general.gif)
+
+> [!NOTE]
+> Tarda unos segundos en cargar el gif.
+
+### Funcionalidades
 
 - **Búsqueda en tiempo real** por nombre de producto
 - **Filtro por color** mediante selector visual
@@ -46,7 +38,31 @@ El sistema permite a los usuarios explorar productos mediante filtros combinable
 - **Paginación de resultados** dinámica
 - **Diseño completamente responsive** (desktop, tablet y mobile)
 - **Comunicación asíncrona** mediante Fetch API (AJAX)
-- **Vista de detalle de producto** con zoom interactivo
+- **Vista de detalle de producto** con zoom interactivo (desktop y mobile)
+
+### Estructura del proyecto
+
+```
+E-commerce/
+├── public/                        # Punto de entrada (Front Controller)
+│   ├── index.php                  # Router principal
+│   └── assets/                    # Recursos estáticos
+│       ├── css/                   # Estilos
+│       ├── js/                    # Scripts JS
+│       └── img/                   # Imágenes
+│
+├── app/                           # Lógica de negocio (Backend)
+│   ├── controllers/               # Controladores
+│   ├── models/                    # Modelos (acceso a datos)
+│   └── config/                    # Configuración (DB, constantes)
+│
+├── views/                         # Vistas (Frontend)
+│   ├── layouts/                   # Header y footer
+│   └── productos/                 # Vistas de productos (listado, detalle)
+│
+├── database.sql                   # Script de base de datos
+└── README.md                      # Documentación del proyecto
+```
 
 ---
 
@@ -62,35 +78,9 @@ El sistema permite a los usuarios explorar productos mediante filtros combinable
 
 ---
 
-## Estructura del proyecto
+## Instalación y configuración
 
-
-```
-E-commerce/
-├── public/ # Punto de entrada (Front Controller)
-│ ├── index.php # Archivo principal (routing básico)
-│ ├── assets/ # Recursos estáticos
-│ │ ├── css/ # Estilos
-│ │ ├── js/ # Scripts JS
-│ │ └── img/ # Imágenes (iconos, UI, etc.)
-│
-├── app/ # Lógica de negocio (Backend)
-│ ├── controllers/ # Controladores (manejan peticiones)
-│ ├── models/ # Modelos (acceso a datos)
-│ └── config/ # Configuración (DB, constantes)
-│
-├── views/ # Vistas (Frontend)
-│ ├── layouts/ # Header y footer
-│ └── productos/ # Vistas de productos (listado, detalle)
-│
-├── database.sql # Script de base de datos
-└── README.md # Documentación del proyecto
-
-```
-
----
-
-## Requisitos previos
+### Requisitos previos
 
 Antes de comenzar, asegúrate de tener instalado:
 
@@ -99,10 +89,6 @@ Antes de comenzar, asegúrate de tener instalado:
 - **Navegador web moderno** (Chrome, Firefox, Edge)
 - **MySQL** *(opcional, según implementación)*
 - **Git** para clonar el repositorio
-
----
-
-## Instalación y configuración
 
 ### 1. Clonar el repositorio
 
@@ -151,9 +137,7 @@ Accede directamente desde tu servidor configurado:
 http://localhost/E-commerce/public/
 ```
 
----
-
-## Configuración de base de datos *(opcional)*
+### 4. Configuración de base de datos *(opcional)*
 
 El proyecto incluye soporte para MySQL con las siguientes tablas:
 
@@ -172,15 +156,13 @@ El proyecto incluye soporte para MySQL con las siguientes tablas:
 |-------|-------------|
 | `products_colors` | Vincula productos con sus colores disponibles |
 
-### Pasos de importación
-
-**1.** Crea una base de datos en MySQL:
+**Paso 1** — Crea una base de datos en MySQL:
 
 ```sql
 CREATE DATABASE `e-commerce` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
 
-**2.** Importa el archivo `.sql` incluido en el proyecto:
+**Paso 2** — Importa el archivo `.sql` incluido en el proyecto:
 
 ```bash
 mysql -u root -p e-commerce < database.sql
@@ -188,7 +170,7 @@ mysql -u root -p e-commerce < database.sql
 
 O desde **phpMyAdmin**: selecciona la base de datos → pestaña *Importar* → sube `database.sql`.
 
-**3.** Configura las credenciales en el archivo de conexión, por ejemplo:
+**Paso 3** — Configura las credenciales en el archivo de conexión:
 
 ```php
 $config = [
