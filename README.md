@@ -46,7 +46,7 @@ Sistema web para la visualización y filtrado dinámico de productos. Permite ex
 ---
 
 ## Estructura del proyecto
-![Captura de la estructura.](/public/img/img_1.pngg)
+![Captura de la estructura.](/public/img/img_1.png)
 ├── public/
 │   ├── index.php
 │   ├── css/
