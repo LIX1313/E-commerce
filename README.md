@@ -12,13 +12,13 @@ Sistema web para la visualización, filtrado dinámico y gestión de productos. 
 
 ## Tabla de contenidos
 
-- [Vista previa](#-vista-general-del-sistema)
-- [Descripción del proyecto](#-descripción-del-proyecto)
-- [Stack tecnológico](#-stack-tecnológico)
-- [Estructura del proyecto](#-estructura-del-proyecto)
-- [Requisitos previos](#-requisitos-previos)
-- [Instalación y configuración](#-instalación-y-configuración)
-- [Configuración de base de datos](#-configuración-de-base-de-datos-opcional)
+- [Vista previa](#vista-general-del-sistema)
+- [Descripción del proyecto](#descripción-del-proyecto)
+- [Stack tecnológico](#stack-tecnológico)
+- [Estructura del proyecto](#estructura-del-proyecto)
+- [Requisitos previos](#requisitos-previos)
+- [Instalación y configuración](#instalación-y-configuración)
+- [Configuración de base de datos](#configuración-de-base-de-datos-opcional)
 
 ---
 
