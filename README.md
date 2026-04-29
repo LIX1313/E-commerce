@@ -11,13 +11,13 @@ Sistema web para la visualización y filtrado dinámico de productos. Permite ex
 
 ## Tabla de contenidos
 
-- [Funcionalidades][Link Text](#funcionalidades)
-- [Stack tecnológico][Link Text](#stack-tecnológico)
-- [Estructura del proyecto][Link Text](#estructura-del-proyecto)
-- [Requisitos][Link Text](#requisitos)
-- [Instalación][Link Text](#instalación)
-- [Configuración de base de datos][Link Text](#configuración-de-base-de-datos-opcional)
-- [Uso del sistema][Link Text](#uso-del-sistema)
+- [Funcionalidades](#funcionalidades)
+- [Stack tecnológico](#stack-tecnológico)
+- [Estructura del proyecto](#estructura-del-proyecto)
+- [Requisitos](#requisitos)
+- [Instalación](#instalación)
+- [Configuración de base de datos](#configuración-de-base-de-datos-opcional)
+- [Uso del sistema](#uso-del-sistema)
 
 ---
 
