@@ -1,9 +1,9 @@
-/* ════════════════════════════════════════════════════════════════
+/* 
    Layout general, hero, filtros desktop/mobile, slider de precio,
    cards, offcanvas mobile, menú fullscreen y WhatsApp FAB.
-════════════════════════════════════════════════════════════════ */
+ */
 
-/* ── Variables ──────────────────────────────────────────────── */
+/* Variables */
 :root {
   --black: #000;
   --white: #fff;
@@ -707,7 +707,7 @@ header {
 
 .filtro-box h6 {
   font-weight: 600;
-  font-size: 13px;
+  font-size: 0.88rem;
   margin-bottom: 10px;
 }
 
@@ -821,15 +821,40 @@ input[type="range"]::-moz-range-thumb {
   transform: translateY(-5px);
 }
 
-.product-img img {
+
+
+/*Imagen del producto - Ahora si no hay imagen que muestre el placeholder*/
+.product-img {
+  position: relative;
   width: 100%;
   height: 350px;
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.product-img img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+}
+
+.no-image-placeholder {
+  display: none;
+  position: absolute;
+  inset: 0;
+  background: #f0f0f0;
+  color: #888;
+  font-size: 14px;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (max-width: 767px) {
   .product-img img {
-    height: 220px;
+    height: 350px;
   }
 }
 

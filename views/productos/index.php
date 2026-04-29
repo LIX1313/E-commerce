@@ -41,6 +41,7 @@
                     <!-- Slider precio (se mueve via JS) -->
                     <div id="sliderContainer" class="filtro-box">
                         <h6>Precio</h6>
+                        <hr>
                         <div class="price-slider">
                             <div class="slider">
                                 <div class="progress" id="sliderProgress"></div>
@@ -59,18 +60,21 @@
                     <!-- Talla -->
                     <div class="filtro-box">
                         <h6>Talla</h6>
+                        <hr>
                         <select class="form-select filtro-select" id="talla"></select>
                     </div>
 
                     <!-- Color -->
                     <div class="filtro-box">
                         <h6>Color</h6>
+                        <hr>
                         <div id="color" class="color-lista"></div>
                     </div>
 
                     <!-- Buscar -->
                     <div class="filtro-box">
                         <h6>Buscar</h6>
+                        <hr>
                         <div class="input-buscar-wrap">
                             <input type="text" class="form-control filtro-input" id="buscar" placeholder="Nombre del producto…">
                             <span class="input-buscar-icon">
@@ -128,6 +132,7 @@
         <!-- ORDEN mobile -->
         <div class="filtro-seccion-mobile">
             <p class="filtro-label-mobile">Ordenar por</p>
+            <hr>
             <select class="form-select filtro-select" id="ordenMobile">
                 <option value="desc">Precio mayor</option>
                 <option value="asc">Precio menor</option>
@@ -137,18 +142,21 @@
         <!-- TALLA mobile (chips) -->
         <div class="filtro-seccion-mobile">
             <p class="filtro-label-mobile">Talla</p>
+            <hr>
             <div class="chips-container" id="chipsContainer"></div>
         </div>
 
         <!-- COLOR mobile -->
         <div class="filtro-seccion-mobile">
             <p class="filtro-label-mobile">Color</p>
+            <hr>
             <div class="color-lista-mobile" id="colorMobile"></div>
         </div>
 
         <!-- BUSCAR mobile -->
         <div class="filtro-seccion-mobile">
             <p class="filtro-label-mobile">Buscar</p>
+            <hr>
             <div class="input-buscar-wrap">
                 <input type="text" class="form-control filtro-input" id="buscarMobile" placeholder="Nombre del producto…">
                 <span class="input-buscar-icon">
@@ -161,7 +169,7 @@
 
     </div>
 
-    <!-- Footer fijo: Ver resultados -->
+    <!-- Ver resultados -->
     <div class="offcanvas-footer-aplicar">
         <button class="btn-aplicar-filtros" data-bs-dismiss="offcanvas" id="btnVerResultados">
             Ver resultados

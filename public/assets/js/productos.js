@@ -510,7 +510,7 @@ function cargarFiltros() {
     .then((res) => res.json())
     .then((data) => {
       //  TALLA DESKTOP
-      let htmlTalla = `<option value="">Todas</option>`;
+      let htmlTalla = `<option value="">Any</option>`;
       data.tallas?.forEach((t) => {
         htmlTalla += `<option value="${t.id_size}">${t.name_size}</option>`;
       });
@@ -519,9 +519,9 @@ function cargarFiltros() {
       //  CHIPS DE TALLA MOBILE
       const chips = document.getElementById("chipsContainer");
       if (chips) {
-        // Chip "Todas" inicial
+        // Chip "Any" inicial
         let chipsHTML = `
-          <button class="chip-talla activo" data-value="">Todas</button>
+          <button class="chip-talla activo" data-value="">Any</button>
         `;
         data.tallas?.forEach((t) => {
           chipsHTML += `
@@ -807,9 +807,9 @@ function cargarProductos(pagina = 1) {
     });
 }
 
-// ─────────────────────────────────────────────
+// 
 // CONTADOR
-// ─────────────────────────────────────────────
+// 
 
 function actualizarContador(meta) {
   if (!meta) return;
@@ -827,9 +827,9 @@ function actualizarContador(meta) {
     elBoton.textContent = `Ver ${meta.filtrados} resultado${meta.filtrados !== 1 ? "s" : ""}`;
 }
 
-// ─────────────────────────────────────────────
+// 
 // PAGINACIÓN
-// ─────────────────────────────────────────────
+// 
 
 function renderPaginacion(meta) {
   const container = document.getElementById("paginacion");
@@ -853,9 +853,9 @@ function renderPaginacion(meta) {
   container.innerHTML = html;
 }
 
-// ─────────────────────────────────────────────
+// 
 // RENDER PRODUCTOS
-// ─────────────────────────────────────────────
+// 
 
 function renderProductos(productos) {
   const container = document.getElementById("resultados");
@@ -878,7 +878,10 @@ function renderProductos(productos) {
       <div class="col-md-4 col-6 mb-4">
         <div class="product-card">
           <div class="product-img">
-            <img src="${p.imagen}" alt="${p.name}" loading="lazy">
+            <img src="${p.imagen || '/img/no-image.png'}" alt="${p.name}" loading="lazy" onerror="this.onerror=null; this.src='/img/no-image.png';">
+            <div class="no-image-placeholder">
+              Sin imagen
+            </div>
           </div>
           <div class="product-info">
             <p class="product-name">${p.name}</p>
@@ -893,9 +896,9 @@ function renderProductos(productos) {
   container.innerHTML = html;
 }
 
-// ─────────────────────────────────────────────
+// 
 // RESPONSIVE — mover slider entre desktop y mobile
-// ─────────────────────────────────────────────
+// 
 
 function moverSlider() {
   const slider = document.getElementById("sliderContainer");
@@ -913,9 +916,9 @@ function moverSlider() {
   }
 }
 
-// ─────────────────────────────────────────────
+// 
 // DETALLE DE PRODUCTO
-// ─────────────────────────────────────────────
+// 
 
 function cargarDetalleProducto() {
   const container = document.getElementById("detalle-producto");
@@ -951,7 +954,10 @@ function cargarDetalleProducto() {
     <!-- IMAGEN -->
     <div class="col-md-6 mb-4 d-flex justify-content-center">
       <div class="zoom-container" id="zoomContainer">
-        <img src="${p.imagen}" id="imagenZoom" class="img-fluid" alt="${p.name}">
+      <img src="${p.imagen || '/img/no-image.png'}" id="imagenZoom" class="img-fluid" alt="${p.name}" loading="lazy" onerror="this.onerror=null; this.src='/img/no-image.png';">
+        <div class="no-image-placeholder">
+                Sin imagen
+        </div>
       </div>
     </div>
 

@@ -65,7 +65,7 @@ class ProductosController
                 'color' => $_GET['color'] ?? [],
                 'orden' => $_GET['orden'] ?? 'desc',
                 'pagina' => $_GET['pagina'] ?? 1,
-                'por_pagina' => $_GET['por_pagina'] ?? 6
+                'por_pagina' => $_GET['por_pagina'] ?? 12
             ];
 
             /**
