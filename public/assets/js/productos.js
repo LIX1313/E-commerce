@@ -92,6 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initLimpiarFiltros();
   sincronizarOrdenMobile();
 });
+
 /**
  * Reubica el slider cuando cambia el tamaño de pantalla
  */
@@ -111,6 +112,7 @@ function debounce(fn, delay = 400) {
     debounceTimer = setTimeout(() => fn(...args), delay);
   };
 }
+
 /**
  * Versión debounce para cargar productos
  */
@@ -127,6 +129,7 @@ function initMenuMobile() {
   const overlay = document.getElementById("mobileMenuOverlay");
 
   if (!toggle || !menu || !overlay) return;
+
   /**
    * Abrir menú
    */
@@ -135,6 +138,7 @@ function initMenuMobile() {
     overlay.classList.add("visible");
     document.body.style.overflow = "hidden";
   };
+
   /**
    * Cerrar menú
    */
@@ -177,7 +181,6 @@ function sincronizarOrdenMobile() {
   /**
    * Desktop → Mobile
    */
-
   ordenDesktop.addEventListener("change", () => {
     ordenMobile.value = ordenDesktop.value;
     cargarProductos(1);
@@ -262,6 +265,7 @@ function eventos() {
     cargarProductos(1);
     actualizarBadge();
   });
+
   /**
    * Búsqueda Desktop (con debounce)
    */
@@ -277,7 +281,7 @@ function eventos() {
 
       cargarProductos(1);
       actualizarBadge();
-    }, 400),
+    }, 400)
   );
 
   /**
@@ -293,13 +297,14 @@ function eventos() {
 
       cargarProductos(1);
       actualizarBadge();
-    }, 400),
+    }, 400)
   );
 }
 
 //
 // SLIDER — listeners
 //
+
 /**
  * Inicializa listeners del slider - Precio
  */
@@ -490,9 +495,11 @@ function ajustarMaxSinReset(max) {
   // Reaplicar rango sin resetear completamente
   aplicarRango(minVal, maxVal, max);
 }
+
 //
 // FILTROS — cargar tallas y colores (desktop + mobile)
 //
+
 /**
  * Carga los filtros desde la API:
  *  - Tallas
@@ -506,8 +513,14 @@ function ajustarMaxSinReset(max) {
  * Mantiene sincronización bidireccional entre desktop y mobile.
  */
 function cargarFiltros() {
+  // Estado de carga inicial mientras llegan los filtros y productos
+  renderLoading("resultados", "Cargando productos...");
+
   fetch("/api/filtros")
-    .then((res) => res.json())
+    .then((res) => {
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res.json();
+    })
     .then((data) => {
       //  TALLA DESKTOP
       let htmlTalla = `<option value="">Any</option>`;
@@ -541,7 +554,7 @@ function cargarFiltros() {
             chips
               .querySelectorAll(".chip-talla")
               .forEach((c) => c.classList.remove("activo"));
-            //Activa el seleccionado
+            // Activa el seleccionado
             chip.classList.add("activo");
 
             // Guardar estado
@@ -576,7 +589,7 @@ function cargarFiltros() {
         cb.addEventListener("change", () => {
           const valDesktop = cb.value;
           const cbMobile = document.querySelector(
-            `.color-check-mobile[value="${valDesktop}"]`,
+            `.color-check-mobile[value="${valDesktop}"]`
           );
           if (cbMobile) cbMobile.checked = cb.checked;
 
@@ -606,7 +619,7 @@ function cargarFiltros() {
           cb.addEventListener("change", () => {
             const valMobile = cb.value;
             const cbDesktop = document.querySelector(
-              `.color-check[value="${valMobile}"]`,
+              `.color-check[value="${valMobile}"]`
             );
             if (cbDesktop) cbDesktop.checked = cb.checked;
 
@@ -615,11 +628,86 @@ function cargarFiltros() {
           });
         });
       }
+    })
+    .catch(() => {
+      // Error al cargar filtros → mostrar en el contenedor principal
+      renderError("resultados", "Error al cargar los filtros. Intenta recargar la página.");
     });
 }
 
 //
-// FILTROS — helpers
+// UI STATES
+//
+
+/**
+ * Muestra un spinner de carga dentro de un contenedor.
+ *
+ * Se usa ANTES de hacer un fetch, para indicarle al usuario
+ * que se está esperando una respuesta del servidor.
+ *
+ * @param {string} containerId - ID del elemento donde se renderiza (sin #)
+ * @param {string} mensaje     - Texto debajo del spinner. Default: "Cargando..."
+ *
+ */
+function renderLoading(containerId, mensaje = "Cargando...") {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+
+  el.innerHTML = `
+    <div class="col-12 text-center py-5">
+      <div class="spinner-border text-dark" role="status"></div>
+      <p class="mt-3 text-muted">${mensaje}</p>
+    </div>
+  `;
+}
+
+/**
+ * Muestra un mensaje de error dentro de un contenedor.
+ *
+ * Se usa dentro del bloque .catch() de un fetch, cuando la petición
+ * falla por error de red, servidor caído o respuesta inesperada (res.ok === false).
+ *
+ * @param {string} containerId - ID del elemento donde se renderiza (sin #)
+ * @param {string} mensaje     - Texto del error a mostrar. Default: "Ocurrió un error"
+ *
+ */
+function renderError(containerId, mensaje = "Ocurrió un error") {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+
+  el.innerHTML = `
+    <div class="col-12">
+      <div class="alert alert-danger text-center" role="alert">
+        ${mensaje}
+      </div>
+    </div>
+  `;
+}
+
+/**
+ * Muestra un estado vacío dentro de un contenedor.
+ *
+ * Se usa cuando el fetch fue exitoso pero el servidor no devolvió
+ * datos que mostrar (array vacío o sin resultados para los filtros activos).
+ *
+ * @param {string} containerId - ID del elemento donde se renderiza (sin #)
+ * @param {string} mensaje     - Texto descriptivo del estado vacío. Default: "No hay resultados"
+ *
+ */
+function renderEmpty(containerId, mensaje = "No hay resultados") {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+
+  el.innerHTML = `
+    <div class="col-12 text-center py-5 text-muted">
+      <i class="bi bi-inbox" style="font-size: 2rem;"></i>
+      <p class="mt-2">${mensaje}</p>
+    </div>
+  `;
+}
+
+//
+// FILTROS
 //
 
 /**
@@ -694,6 +782,7 @@ function filtrosBaseIguales(a, b) {
 //
 // PRODUCTOS — cargarProductos
 //
+
 /**
  *
  * Maneja:
@@ -703,6 +792,9 @@ function filtrosBaseIguales(a, b) {
  * - Estado inteligente
  */
 function cargarProductos(pagina = 1) {
+  // Estado de carga mientras se obtienen los productos
+  renderLoading("resultados", "Cargando productos...");
+
   paginaActual = pagina;
 
   const estadoActual = leerFiltrosBase();
@@ -710,7 +802,6 @@ function cargarProductos(pagina = 1) {
   const cambiároBase = !filtrosBaseIguales(estadoActual, estadoAnterior);
 
   // PRE-RESET (CASO 3)
-
   if (!tieneBase && cambiároBase) {
     const rangoReset = maxGlobal || 0;
     aplicarRango(0, rangoReset, rangoReset);
@@ -747,7 +838,10 @@ function cargarProductos(pagina = 1) {
   estadoActual.colores.forEach((v) => params.append("color[]", v));
 
   fetch(`${API}?${params.toString()}`)
-    .then((res) => res.json())
+    .then((res) => {
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res.json();
+    })
     .then((res) => {
       /**
        * Datos de configuración desde backend
@@ -788,6 +882,7 @@ function cargarProductos(pagina = 1) {
         // Caso: sin filtros
         resetSliderGlobal(precioMaxApi);
       }
+
       /**
        * Guardar estado actual
        */
@@ -797,19 +892,30 @@ function cargarProductos(pagina = 1) {
         colores: [...estadoActual.colores],
       };
 
+      // ESTADO VACÍO
+      const productos = res.data || [];
+      if (!productos.length) {
+        renderEmpty("resultados", "No se encontraron productos");
+        return;
+      }
+
       /**
        * Render UI
        */
-      renderProductos(res.data || []);
+      renderProductos(productos);
       renderPaginacion(res.meta);
       actualizarContador(res.meta);
       actualizarBadge();
+    })
+    .catch(() => {
+      // Error de red o respuesta inesperada del servidor
+      renderError("resultados", "Error al cargar los productos. Intenta de nuevo.");
     });
 }
 
-// 
+//
 // CONTADOR
-// 
+//
 
 function actualizarContador(meta) {
   if (!meta) return;
@@ -827,9 +933,9 @@ function actualizarContador(meta) {
     elBoton.textContent = `Ver ${meta.filtrados} resultado${meta.filtrados !== 1 ? "s" : ""}`;
 }
 
-// 
+//
 // PAGINACIÓN
-// 
+//
 
 function renderPaginacion(meta) {
   const container = document.getElementById("paginacion");
@@ -853,9 +959,9 @@ function renderPaginacion(meta) {
   container.innerHTML = html;
 }
 
-// 
+//
 // RENDER PRODUCTOS
-// 
+//
 
 function renderProductos(productos) {
   const container = document.getElementById("resultados");
@@ -865,7 +971,7 @@ function renderProductos(productos) {
    * Sin resultados
    */
   if (!productos.length) {
-    container.innerHTML = `<p class="text-center col-12 py-5 text-muted">No hay productos disponibles.</p>`;
+    renderEmpty("resultados", "No hay productos disponibles.");
     return;
   }
 
@@ -878,7 +984,7 @@ function renderProductos(productos) {
       <div class="col-md-4 col-6 mb-4">
         <div class="product-card">
           <div class="product-img">
-            <img src="${p.imagen || '/assets/img/no-image.png'}" alt="${p.name}" loading="lazy" onerror="this.onerror=null; this.src='/assets/img/no-image.png';">
+            <img src="${p.imagen || "/assets/img/no-image.png"}" alt="${p.name}" loading="lazy" onerror="this.onerror=null; this.src='/assets/img/no-image.png';">
             <div class="no-image-placeholder">
               Sin imagen
             </div>
@@ -896,9 +1002,9 @@ function renderProductos(productos) {
   container.innerHTML = html;
 }
 
-// 
+//
 // RESPONSIVE — mover slider entre desktop y mobile
-// 
+//
 
 function moverSlider() {
   const slider = document.getElementById("sliderContainer");
@@ -916,9 +1022,9 @@ function moverSlider() {
   }
 }
 
-// 
+//
 // DETALLE DE PRODUCTO
-// 
+//
 
 function cargarDetalleProducto() {
   const container = document.getElementById("detalle-producto");
@@ -928,22 +1034,26 @@ function cargarDetalleProducto() {
   const id = params.get("id");
 
   /**
-   * Validación de ID
+   * Validación de ID → antes de hacer fetch
    */
   if (!id || isNaN(id)) {
-    container.innerHTML = `
-      <div class="text-center text-danger py-5">
-        <p>ID de producto no válido</p>
-      </div>
-    `;
+    renderError("detalle-producto", "ID de producto no válido.");
     return;
   }
 
+  // Estado de carga mientras se obtiene el detalle
+  renderLoading("detalle-producto", "Cargando producto...");
+
   fetch(`/api/detalles?id=${id}`)
-    .then((res) => res.json())
     .then((res) => {
-      if (res.status !== "success" || !res.data.length) {
-        throw new Error("Producto no encontrado");
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res.json();
+    })
+    .then((res) => {
+      // Producto no encontrado
+      if (!res.data?.length) {
+        renderEmpty("detalle-producto", "Producto no encontrado.");
+        return;
       }
 
       const p = res.data[0];
@@ -954,9 +1064,9 @@ function cargarDetalleProducto() {
     <!-- IMAGEN -->
     <div class="col-md-6 mb-4 d-flex justify-content-center">
       <div class="zoom-container" id="zoomContainer">
-      <img src="${p.imagen || '/assets/img/no-image.png'}" id="imagenZoom" class="img-fluid" alt="${p.name}" loading="lazy" onerror="this.onerror=null; this.src='/assets/img/no-image.png';">
+        <img src="${p.imagen || "/assets/img/no-image.png"}" id="imagenZoom" class="img-fluid" alt="${p.name}" loading="lazy" onerror="this.onerror=null; this.src='/assets/img/no-image.png';">
         <div class="no-image-placeholder">
-                Sin imagen
+          Sin imagen
         </div>
       </div>
     </div>
@@ -992,14 +1102,13 @@ function cargarDetalleProducto() {
       initZoomImagen();
     })
     .catch(() => {
-      container.innerHTML = `
-        <div class="text-center text-danger py-5">
-          <p>Error al cargar el producto</p>
-        </div>
-      `;
+      // Error de red o respuesta inesperada del servidor
+      renderError("detalle-producto", "Error al cargar el producto. Intenta de nuevo.");
     });
 }
-//ZOOM DE PRODUCTO
+
+// ZOOM DE PRODUCTO
+
 function initZoomImagen() {
   const container = document.getElementById("zoomContainer");
   const img = document.getElementById("imagenZoom");
