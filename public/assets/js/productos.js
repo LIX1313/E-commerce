@@ -920,7 +920,10 @@ function cargarProductos(pagina = 1) {
     })
     .catch(() => {
       // Error de red o respuesta inesperada del servidor
-      renderError("resultados", "Error al cargar los productos. Intenta de nuevo.");
+      renderError(
+        "resultados",
+        "Error al cargar los productos. Intenta de nuevo.",
+      );
     });
 }
 

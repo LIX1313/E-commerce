@@ -18,10 +18,11 @@
 
 * {
   box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
 }
 
 body {
-  font-family: "Poppins", sans-serif;
+
   font-weight: 400;
   color: var(--black);
 }
@@ -733,6 +734,7 @@ header {
 }
 
 .color-lista input[type="checkbox"] {
+  font-family: "Poppins", sans-serif;
   accent-color: var(--black);
   width: 14px;
   height: 14px;
@@ -765,6 +767,7 @@ header {
 }
 
 .range-input input {
+  font-family: "Poppins", sans-serif;
   position: absolute;
   width: 100%;
   top: -6px;
