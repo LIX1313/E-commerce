@@ -97,6 +97,7 @@
                     <select class="form-select w-auto filtro-select" id="orden">
                         <option value="desc">Precio mayor</option>
                         <option value="asc">Precio menor</option>
+                        <option value="nuevo">Más nuevo</option>
                     </select>
                 </div>
 
@@ -126,7 +127,7 @@
     </div>
 
     <div class="offcanvas-body" id="offcanvasBody">
-
+<option value="nuevo">Más nuevo</option>
         <!-- El sliderContainer se mueve aquí en mobile via moverSlider() -->
 
         <!-- ORDEN mobile -->
@@ -136,6 +137,7 @@
             <select class="form-select filtro-select" id="ordenMobile">
                 <option value="desc">Precio mayor</option>
                 <option value="asc">Precio menor</option>
+                <option value="nuevo">Más nuevo</option>
             </select>
         </div>
 

@@ -100,7 +100,7 @@ class ProductosController
             }
 
             // Validación de ordenamiento (evita valores inválidos o inyección)
-            if (!in_array($filtros['orden'], ['asc', 'desc'])) {
+            if (!in_array($filtros['orden'], ['asc', 'desc','nuevo'])) {
                 $filtros['orden'] = 'desc';
             }
 

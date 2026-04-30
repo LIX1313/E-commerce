@@ -226,7 +226,13 @@ class Producto
          * 
          * Por defecto DESC si no es 'asc'
          */
-        $order = $filtros['orden'] === 'asc' ? 'ASC' : 'DESC';
+        $order_by = "";
+        if ($filtros['orden'] === "nuevo") {
+            $order_by = "ORDER BY p.id DESC";
+        }else{
+            $order = $filtros['orden'] === 'asc' ? 'ASC' : 'DESC';
+            $order_by = "ORDER BY p.price $order";
+        }
 
         /**
          * CONSULTA PRINCIPAL
@@ -238,7 +244,7 @@ class Producto
             FROM products p
             LEFT JOIN products_colors pc ON p.id = pc.id_product
             $where
-            ORDER BY p.price $order
+            $order_by
             LIMIT $porPagina OFFSET $offset
         ");
 
