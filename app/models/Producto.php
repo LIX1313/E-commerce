@@ -32,7 +32,6 @@ class Producto
      * Ejecuta una consulta SQL y devuelve los resultados como arreglo asociativo
      * 
      * Este método asume que la consulta siempre devuelve resultados.
-     * En producción se recomienda validar errores.
      * 
      * @param string $sql Consulta SQL a ejecutar
      * @return array Resultado en formato asociativo
@@ -172,7 +171,6 @@ class Producto
          * Construcción dinámica del WHERE
          * 
          * Se agregan condiciones solo si el filtro existe,
-         * permitiendo consultas flexibles sin múltiples métodos.
          */
 
         if ($filtros['nombre']) {

@@ -7,7 +7,7 @@
  * Paginación
  * Render de productos
  * Menú mobile fullscreen
- * Vista detalle + zoom tipo Mercado Libre
+ * Vista detalle + zoom
  *
  * Este archivo está diseñado para funcionar en DOS MODOS:
  *
